@@ -94,10 +94,10 @@
     </div>
 
     <!-- QUESTS -->
-    <button class="button" onclick="completeQuest(30)">Gym Workout (+30 DP)</button>
-    <button class="button" onclick="completeQuest(40)">No Binge Eating (+40 DP)</button>
-    <button class="button" onclick="completeQuest(25)">30-min StairMaster (+25 DP)</button>
-    <button class="button" onclick="completeQuest(15)">Learn 10 Minutes (+15 DP)</button>
+    <button class="button" onclick="completeQuest(10)">Gym Workout (+10 DP)</button>
+    <button class="button" onclick="completeQuest(12)">No Binge Eating (+12 DP)</button>
+    <button class="button" onclick="completeQuest(8)">30-min StairMaster (+8 DP)</button>
+    <button class="button" onclick="completeQuest(5)">Learn 10 Minutes (+5 DP)</button>
 
     <!-- STATS -->
     <div class="card stats-row">
@@ -131,7 +131,13 @@
     }
 
     function completeQuest(value) {
-      dp += value;
+      // Soft cap at 25 DP
+      if (dp < 25) {
+        dp += value;
+      } else {
+        dp += 1; // reduced reward after cap
+      }
+
       streak += 1;
 
       localStorage.setItem("dp", dp);
