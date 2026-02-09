@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ascend</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#0b1026, #050814);
+      color: white;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 420px;
+      width: 100%;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .button {
+      width: 100%;
+      background: #2563eb;
+      border: none;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="card">
+      <h2>Ascender</h2>
+      <p style="color:#60a5fa;">Level 1 — Awakening</p>
+    </div>
+
+    <div class="card">
+      <div class="stats-row">
+        <div>
+          <h1>0</h1>
+          <small>DP Today</small>
+        </div>
+        <div>
+          <h1>0</h1>
+          <small>Streak</small>
+        </div>
+      </div>
+      <p style="text-align:center; color:gray;">20% to next level</p>
+    </div>
+
+    <div class="card stats-row">
+      <span>Fitness</span>
+      <span style="color:#60a5fa;">Untrained</span>
+    </div>
+
+    <div class="card stats-row">
+      <span>Intelligence</span>
+      <span style="color:#60a5fa;">Curious</span>
+    </div>
+
+    <div class="card stats-row">
+      <span>Finance</span>
+      <span style="color:#60a5fa;">Aware</span>
+    </div>
+
+    <button class="button">Quest Board</button>
+    <button class="button">Learning Hall</button>
+    <button class="button">Rewards Vault</button>
+
+  </div>
+</body>
+</html>
