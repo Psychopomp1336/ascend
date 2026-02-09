@@ -63,6 +63,12 @@
       width: 0%;
       transition: width 0.3s ease;
     }
+
+    .warning {
+      color: #facc15;
+      text-align: center;
+      margin-top: 8px;
+    }
   </style>
 </head>
 
@@ -91,6 +97,7 @@
       </div>
 
       <p id="levelText" style="text-align:center; color:gray;">0% to next level</p>
+      <p id="warning" class="warning"></p>
     </div>
 
     <!-- QUESTS -->
@@ -99,27 +106,37 @@
     <button class="button" onclick="completeQuest(8)">30-min StairMaster (+8 DP)</button>
     <button class="button" onclick="completeQuest(5)">Learn 10 Minutes (+5 DP)</button>
 
-    <!-- STATS -->
-    <div class="card stats-row">
-      <span>Fitness</span>
-      <span style="color:#60a5fa;">Untrained</span>
-    </div>
-
-    <div class="card stats-row">
-      <span>Intelligence</span>
-      <span style="color:#60a5fa;">Curious</span>
-    </div>
-
-    <div class="card stats-row">
-      <span>Finance</span>
-      <span style="color:#60a5fa;">Aware</span>
-    </div>
-
   </div>
 
   <script>
     let dp = Number(localStorage.getItem("dp")) || 0;
     let streak = Number(localStorage.getItem("streak")) || 0;
+    let lastDate = localStorage.getItem("lastDate");
+    let missedDays = Number(localStorage.getItem("missedDays")) || 0;
+
+    const today = new Date().toDateString();
+
+    // DAILY RESET LOGIC
+    if (lastDate !== today) {
+      if (dp === 0 && lastDate !== null) {
+        missedDays += 1;
+      } else {
+        missedDays = 0;
+      }
+
+      if (missedDays >= 2) {
+        streak = 0;
+        missedDays = 0;
+      }
+
+      dp = 0;
+      lastDate = today;
+
+      localStorage.setItem("missedDays", missedDays);
+      localStorage.setItem("streak", streak);
+      localStorage.setItem("dp", dp);
+      localStorage.setItem("lastDate", lastDate);
+    }
 
     function updateUI() {
       document.getElementById("dp").innerText = dp;
@@ -128,20 +145,28 @@
       const percent = Math.min(dp, 100);
       document.getElementById("progress").style.width = percent + "%";
       document.getElementById("levelText").innerText = percent + "% to next level";
+
+      if (missedDays === 1) {
+        document.getElementById("warning").innerText = "⚠️ Missed yesterday. Don’t miss today.";
+      } else {
+        document.getElementById("warning").innerText = "";
+      }
     }
 
     function completeQuest(value) {
-      // Soft cap at 25 DP
       if (dp < 25) {
         dp += value;
       } else {
-        dp += 1; // reduced reward after cap
+        dp += 1;
       }
 
       streak += 1;
+      missedDays = 0;
 
       localStorage.setItem("dp", dp);
       localStorage.setItem("streak", streak);
+      localStorage.setItem("missedDays", missedDays);
+      localStorage.setItem("lastDate", today);
 
       updateUI();
     }
