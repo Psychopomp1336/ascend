@@ -118,13 +118,10 @@
   </div>
 
   <script>
-    let dp = 0;
-    let streak = 0;
+    let dp = Number(localStorage.getItem("dp")) || 0;
+    let streak = Number(localStorage.getItem("streak")) || 0;
 
-    function completeQuest(value) {
-      dp += value;
-      streak += 1;
-
+    function updateUI() {
       document.getElementById("dp").innerText = dp;
       document.getElementById("streak").innerText = streak;
 
@@ -132,6 +129,18 @@
       document.getElementById("progress").style.width = percent + "%";
       document.getElementById("levelText").innerText = percent + "% to next level";
     }
+
+    function completeQuest(value) {
+      dp += value;
+      streak += 1;
+
+      localStorage.setItem("dp", dp);
+      localStorage.setItem("streak", streak);
+
+      updateUI();
+    }
+
+    updateUI();
   </script>
 </body>
 </html>
